@@ -1,0 +1,94 @@
+_schema-version: "3.2"
+ID: ux-zdashboard
+description: A Fiori application.
+version: 0.0.1
+modules:
+- name: ux-zdashboard-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: ux-zdashboard-dest-srv
+    parameters:
+      content-target: true
+  - name: ux-zdashboard-repo-host
+    parameters:
+      service-key:
+        name: ux-zdashboard-repo-host-key
+  - name: ux-zdashboard-uaa
+    parameters:
+      service-key:
+        name: ux-zdashboard-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: ux-zdashboard_repo_host
+          ServiceInstanceName: ux-zdashboard-html5-srv
+          ServiceKeyName: ux-zdashboard-repo-host-key
+          sap.cloud.service: ux-zdashboard
+        - Authentication: OAuth2UserTokenExchange
+          Name: ux-zdashboard_uaa
+          ServiceInstanceName: ux-zdashboard-xsuaa-srv
+          ServiceKeyName: ux-zdashboard-uaa-key
+          sap.cloud.service: ux-zdashboard
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: ux-zdashboard-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: ux-zdashboard-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - uxzdashboard.zip
+      name: uxzdashboard
+      target-path: resources/
+- name: uxzdashboard
+  type: html5
+  path: .
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: ux-zdashboard-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: ux-zdashboard-dest-srv
+    service-plan: lite
+- name: ux-zdashboard-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: ux-zdashboard-xsuaa-srv
+    service-plan: application
+- name: ux-zdashboard-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: ux-zdashboard-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true

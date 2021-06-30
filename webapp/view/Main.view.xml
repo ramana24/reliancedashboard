@@ -1,0 +1,71 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ux.zdashboard.controller.Main" displayBlock="true">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="Collins DevOps">
+					<content>
+                    
+                    <VBox>
+                            <HBox>
+
+                            <!-- <Label class="sapUiTinyMarginBegin" text="Logo"></Label> -->
+                            	<Image class="sapUiTinyMarginBegin" src="https://www.ril.com/App_Themes/RIL/images/generic/RIL_Logo.png" width="164px" height="46px"/>		
+                             <!-- <Label class="sapUiTinyMarginBegin"  text="System Alert"></Label> -->
+                              <VBox class="sapUiTinyMarginBegin">
+                             	<Title level="H3" text="System Alerts"/>
+                                 <Text text="CRM"/>
+                                 </VBox>
+                              <!-- <Label  class="sapUiTinyMarginBegin" text="Critical Systems"></Label> -->
+                                <VBox class="sapUiTinyMarginBegin">
+                             	<Title level="H3" text="Critical Systems"/>
+                                 <Text text="ECC"/>
+                                 </VBox>
+                            </HBox>
+                                    <HBox>
+                                  <IconTabBar selectedKey="__filter1" id="bar0">
+                                      <items>
+                                          <IconTabFilter text="Dashboard" icon="sap-icon://bbyd-dashboard" iconColor="Critical" id="filter3">
+
+               <content>
+               
+               <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="form0">
+                                          <sap.ui.layout.form:content>
+                                            
+                                            
+                                              <sap.ui.core:Title text="CRM" id="title2"/>
+                                            
+                                            <HBox>
+                                              <Label text="Queue Depth" id="label3"/>
+                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                            </HBox>
+                                            
+                                             	<List id="myList" mode="None" headerText="">
+		<items>
+			<StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="{highlight}" info="{DimensionHeight}" infoState="Error" infoStateInverted="true" type="Active" cd:w5g.dt.context="/Products"/>
+			<StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="{highlight}" info="{DimensionWidth}" infoState="Error" infoStateInverted="true" type="Active" cd:w5g.dt.context="/Products"/>
+            	<StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://process" iconInset="false" highlight="{highlight}" info="{DimensionWidth}" infoState="Error" infoStateInverted="true" type="Active" cd:w5g.dt.context="/Products"/>
+        </items>
+	</List>
+                                              
+                                              
+                                              
+                                              </sap.ui.layout.form:content>
+                                      </sap.ui.layout.form:SimpleForm>
+                                  </content>
+                                  </IconTabFilter>
+
+                                          <IconTabFilter text="Reports" icon="sap-icon://chart-table-view" iconColor="Critical" id="filter1"/></items>
+                                 
+                                  </IconTabBar>
+                            <items/>
+                            </HBox>
+                            <HBox>
+                              
+                                </HBox>
+                    </VBox>
+                    </content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
