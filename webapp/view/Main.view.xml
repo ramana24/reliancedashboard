@@ -1,68 +1,430 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="ux.zdashboard.controller.Main" displayBlock="true">
+<mvc:View  xmlns:mvc="sap.ui.core.mvc" controllerName="ux.zdashboard.controller.Main" 
+    xmlns="sap.m" 
+	xmlns:viz="sap.viz.ui5.controls" 
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data"   
+	xmlns:chart="sap.suite.ui.commons"
+	xmlns:c="sap.suite.ui.microchart"
+    displayBlock="true">
+
+
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page" title="Collins DevOps">
+				<Page id="page" title="Collins DevOps" >
 					<content>
                     
-                    <VBox>
+
+
+<VBox>
+                   
                             <HBox>
 
-                            <!-- <Label class="sapUiTinyMarginBegin" text="Logo"></Label> -->
-                            	<Image class="sapUiTinyMarginBegin" src="https://www.ril.com/App_Themes/RIL/images/generic/RIL_Logo.png" width="164px" height="46px"/>		
-                             <!-- <Label class="sapUiTinyMarginBegin"  text="System Alert"></Label> -->
-                              <VBox class="sapUiTinyMarginBegin">
-                             	<Title level="H3" text="System Alerts"/>
-                                 <Text text="CRM"/>
+                         
+                            	<Image class="sapUiTinyMargin" src="https://www.ril.com/App_Themes/RIL/images/generic/RIL_Logo.png" width="164px" height="46px"/>		
+                            
+                              <VBox id="syscontainer" class=" HeaderTile1 sapUiTinyMarginTopBottom sapUiTinyMarginBeginEnd">
+                             	<Title class="HeaderTileText1" level="H3" text="System Alerts"/>
+                                 <Text class="HeaderTileStatusText1" text="CRM"/>
                                  </VBox>
-                              <!-- <Label  class="sapUiTinyMarginBegin" text="Critical Systems"></Label> -->
-                                <VBox class="sapUiTinyMarginBegin">
-                             	<Title level="H3" text="Critical Systems"/>
-                                 <Text text="ECC"/>
+                             
+                                <VBox id="criticalcontainer" class=" HeaderTile1  sapUiTinyMarginTopBottom sapUiTinyMarginBeginEnd">
+                             	<Title class="HeaderTileText1" level="H3" text="Critical Systems"/>
+                                 <Text class="HeaderTileStatusText1" text="AWS"/>
                                  </VBox>
-                            </HBox>
-                                    <HBox>
-                                  <IconTabBar selectedKey="__filter1" id="bar0">
+                            </HBox> 
+
+                                   <VBox> 
+                            <IconTabBar class="sapUiResponsiveContentPadding" stretchContentHeight="false"  selectedKey="tab" id="idTab">
                                       <items>
-                                          <IconTabFilter text="Dashboard" icon="sap-icon://bbyd-dashboard" iconColor="Critical" id="filter3">
+                                        <IconTabFilter text="Dashboard" icon="sap-icon://bbyd-dashboard" iconColor="Critical" id="iddashboard">
+                                          
+	<ScrollContainer
+					height="100%"
+					width="100%"
+					horizontal="false"
+					vertical="false">
+<!--  Tile Area Row 1 -->
+               <HBox>
 
-               <content>
-               
-               <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="form0">
-                                          <sap.ui.layout.form:content>
-                                            
-                                            
-                                              <sap.ui.core:Title text="CRM" id="title2"/>
-                                            
-                                            <HBox>
-                                              <Label text="Queue Depth" id="label3"/>
-                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
-                                            </HBox>
-                                            
-                                             	<List id="myList" mode="None" headerText="">
-		<items>
-			<StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="{highlight}" info="{DimensionHeight}" infoState="Error" infoStateInverted="true" type="Active" cd:w5g.dt.context="/Products"/>
-			<StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="{highlight}" info="{DimensionWidth}" infoState="Error" infoStateInverted="true" type="Active" cd:w5g.dt.context="/Products"/>
-            	<StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://process" iconInset="false" highlight="{highlight}" info="{DimensionWidth}" infoState="Error" infoStateInverted="true" type="Active" cd:w5g.dt.context="/Products"/>
-        </items>
-	</List>
-                                              
-                                              
-                                              
-                                              </sap.ui.layout.form:content>
-                                      </sap.ui.layout.form:SimpleForm>
-                                  </content>
-                                  </IconTabFilter>
+               <!-- CRM Tile -->
+               <VBox id="crmContainer" class="equalColumns1">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="CRMForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="{i18n>CRM}" id="idCRMTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idCRMQD"/>
+                                                                            <NumericContent value="{CRM>/d/WeightMeasure}" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idCRMList" mode="None" headerText="">
+                                                                    <items>
+                                                                        <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{CRM>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{CRM>/d/DimensionWidth}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{CRM>/d/DimensionDepth}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
 
-                                          <IconTabFilter text="Reports" icon="sap-icon://chart-table-view" iconColor="Critical" id="filter1"/></items>
-                                 
-                                  </IconTabBar>
-                            <items/>
-                            </HBox>
-                            <HBox>
-                              
-                                </HBox>
-                    </VBox>
+                </VBox>
+
+                <!-- ECC Tile -->
+ <VBox id="eccContainer" class="equalColumns2">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="ECCForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="ECC" id="idECCTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idECCQD"/>
+                                                                            <NumericContent value="{ECC>/d/WeightMeasure}" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idECCList" mode="None" headerText="">
+                                                                    <items>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{ECC>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{ECC>/d/DimensionWidth}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{ECC>/d/DimensionDepth}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+            <!-- SRM Tile -->
+ <VBox id="srmContainer" class="equalColumns1">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="SRMForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="SRM" id="idSRMTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idSRMQD"/>
+                                                                            <NumericContent value="{SRM>/d/WeightMeasure}" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idSRMList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{SRM>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{SRM>/d/DimensionWidth}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{SRM>/d/DimensionDepth}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+                </HBox>
+
+
+<!-- Start Tile layout row 2 -->
+
+
+ <HBox>
+
+               <!-- BW Tile -->
+               <VBox id="BWContainer" class="equalColumns2">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="BWForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="BW" id="idBWTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idBWQD"/>
+                                                                            <NumericContent value="{BW>/d/WeightMeasure}" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idBWList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{BW>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{BW>/d/DimensionWidth}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{BW>/d/DimensionDepth}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+                <!-- SF Tile -->
+ <VBox id="SFContainer" class="equalColumns1">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="SFForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="SF" id="idSFTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idSFQD"/>
+                                                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idSFList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{ECC>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{ECC>/d/DimensionHeight}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{ECC>/d/DimensionHeight}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+            <!-- SRM Tile -->
+ <VBox id="HCMContainer" class="equalColumns2">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="HCMForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="HCM" id="idHCMTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idHCMQD"/>
+                                                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idHCMList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{ECC>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{ECC>/d/DimensionHeight}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{ECC>/d/DimensionHeight}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+                </HBox>
+
+
+
+
+<!-- End of Tiles Row 2 -->
+
+
+
+<!-- Start Tile layout row 3 -->
+
+
+ <HBox>
+
+               <!-- Workday Tile -->
+               <VBox id="WorkdayContainer" class="equalColumns1">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="WorkdayForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="Workday" id="idWorkdayTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idWorkdayQD"/>
+                                                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idWorkdayList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{ECC>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{ECC>/d/DimensionHeight}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{ECC>/d/DimensionHeight}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+                <!-- Java Tile -->
+ <VBox id="JavaContainer" class="equalColumns2">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="JavaForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="Java" id="idJavaTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idJavaQD"/>
+                                                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idJavaList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{ECC>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{ECC>/d/DimensionHeight}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{ECC>/d/DimensionHeight}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+            <!-- AWS Tile -->
+ <VBox id="AWSContainer" class="equalColumns1">
+                                            <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="AWSForm">
+                                                    <sap.ui.layout.form:content>
+                                                        <sap.ui.core:Title text="AWS" id="idAWSTitle"/>
+                                                                            
+                                                                            <HBox>
+                                                                            <Label text="Queue Depth" id="idAWSQD"/>
+                                                                            <NumericContent value="65" scale="MM" valueColor="Good" indicator="Up" class="sapUiSmallMargin" press="press"/>
+                                                                            </HBox>                    
+                                                                           
+                                                                            
+                                                                <List id="idAWSList" mode="None" headerText="">
+                                                                    <items>
+                                                                       <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="System Errors" icon="sap-icon://error" iconInset="false" highlight="Error" info="{ECC>/d/DimensionHeight}" infoState="Error"  type="Active"/>
+                                                                      <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="App Errors" icon="sap-icon://status-error" iconInset="false" highlight="Success" info="{ECC>/d/DimensionHeight}" infoState="Success"  type="Active"/>
+                                                                         <StandardListItem xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="No of threads" icon="sap-icon://synchronize" iconInset="false" highlight="Warning" info="{ECC>/d/DimensionHeight}" infoState="Warning"  type="Active"/>
+                                                                   
+                                                                    </items>
+                                                                </List>
+                                                                            
+                                                                            
+                                                                            
+                                                         </sap.ui.layout.form:content>
+                                             </sap.ui.layout.form:SimpleForm>
+
+                </VBox>
+
+                </HBox>
+
+
+
+
+<!-- End of Tiles Row 3 -->
+</ScrollContainer>  
+                                       </IconTabFilter>
+
+                                       <IconTabFilter text="Reports" icon="sap-icon://chart-table-view" iconColor="Critical" id="idreports">
+                                           	<ScrollContainer
+					height="100%"
+					width="100%"
+					horizontal="false"
+					vertical="false">
+                                                        <chart:ChartContainer
+                                                                        id="chartContainer"
+                                                                        showFullScreen="true"
+                                                                        showPersonalization="false"
+                                                                        autoAdjustHeight="false"
+                                                                        personalizationPress="attachPersonalizationPress"
+                                                                        contentChange="attachContentChange"
+                                                                        title="Charts">
+                                                                        <chart:content>
+                                                                            <chart:ChartContainerContent
+                                                                                icon="sap-icon://line-chart"
+                                                                                title="Column Chart">
+                                                                                <chart:content>
+                                                                                    
+
+                                                                    <viz:VizFrame id="idVizFrameColumn" width = "1200px"
+                                                            height = "600px" vizProperties="{ title: {text : ' Analytics', visible : true}}" xmlns="sap.viz"></viz:VizFrame>
+                                                                                        
+
+                                                                                </chart:content>
+                                                                            </chart:ChartContainerContent>
+                                                                        </chart:content>
+                                                                    </chart:ChartContainer>
+
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <Panel xmlns="sap.m" width="auto" expandable="true"  expanded="true" id="panel3" headerText="Donut / PIE Chart">
+						
+						<chart:ChartContainer id="chartContainer2" showFullScreen="true" showZoom="true" title="Summary Report">
+		<chart:ChartContainerContent>
+		    <chart:content>
+
+	              
+  <viz:VizFrame id="idpiechart" width="auto"
+    uiConfig="{applicationSet:'fiori'}" vizType="pie"
+    vizProperties="{
+		   plotArea:{
+                            dataLabel:{visible: true}
+			    },
+                            title : {text:'Flavor-Sales'}
+		    }"
+		    selectData="myOnClickHandler" 
+                    
+		    renderComplete="handleRenderComplete"
+   >
+     <viz:dataset>
+	<viz.data:FlattenedDataset id="flattenData" data="{IceCreamModel>/Items}">
+           <viz.data:dimensions>
+	     <viz.data:DimensionDefinition name="Flavor" value="{IceCreamModel>Flavor}" />
+           </viz.data:dimensions>
+	   <viz.data:measures>
+              <viz.data:MeasureDefinition name="Sales" value="{IceCreamModel>Sales}" />
+	   </viz.data:measures>
+	 </viz.data:FlattenedDataset>
+      </viz:dataset>
+	       
+       <viz:feeds>
+         <viz.feeds:FeedItem uid="size" type="Measure" values="Sales" />
+	 <viz.feeds:FeedItem uid="color" type="Dimension" values="Flavor" />
+       </viz:feeds>
+   </viz:VizFrame>
+
+	
+								
+                    </chart:content>
+		</chart:ChartContainerContent>
+	</chart:ChartContainer>
+					</Panel>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    </ScrollContainer>
+                                  
+                                       </IconTabFilter>
+                                   </items> 
+                            </IconTabBar>
+                         
+   </VBox>                         
+                           
+</VBox>
+
+
+
+
                     </content>
 				</Page>
 			</pages>

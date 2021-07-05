@@ -1,1 +1,31 @@
-/* Enter your custom styles here */
+
+.equalColumns1 {
+	background-color: #EE6C4D;
+	
+}  
+ .equalColumns4 {
+	background-color: #E0FBFC;
+	
+} 
+ .equalColumns3 {
+	background-color: #98C1D9;
+	
+} 
+ .equalColumns2 {
+	background-color: #3D5A80;
+	
+} 
+
+
+
+.HeaderTile1 {
+   background-color: #146c9b;  
+  border-radius: 5px;
+} 
+
+.HeaderTileText1{
+	 color: #FFFFFF;
+}
+.HeaderTileStatusText1{
+	color: #EAE2B7;
+}

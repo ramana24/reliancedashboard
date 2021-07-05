@@ -1,0 +1,52 @@
+
+.equalColumns1 {
+	background-color: indigo;
+	
+}  
+ .equalColumns2 {
+	background-color: grey;
+	
+} 
+ .equalColumns3 {
+	background-color: wheat ;
+	
+} 
+ .equalColumns4 {
+	background-color: black;
+	
+} 
+ .equalColumns5 {
+	background-color: red;
+	
+} 
+
+.HeaderTile1 {
+   background-color: #003049;  
+  border-radius: 5px;
+} 
+.HeaderTileText1{
+	 color: #FFFFFF;
+}
+.HeaderTileStatusText1{
+	color: #EAE2B7;
+}
+.SimpleFormTitle1{
+	color: #FFFFFF;
+}
+.AlertText{
+	color: #FF0000;
+}
+.IconTabText{
+	color: #000000;
+}
+.FormTitleBackground{
+	background-color: #003049;
+}
+.Hbold {
+	font-weight: bold;
+}
+.HeaderTile2 {
+	background-color: #49adc1;
+	
+} 
+ /* Enter your custom styles here */
