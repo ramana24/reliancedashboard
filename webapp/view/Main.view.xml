@@ -5,7 +5,9 @@
 	xmlns:viz.data="sap.viz.ui5.data"   
 	xmlns:chart="sap.suite.ui.commons"
 	xmlns:c="sap.suite.ui.microchart"
-    displayBlock="true">
+    displayBlock="true"
+    xmlns:grid="sap.ui.table"
+    >
 
 
 	<Shell id="shell">
@@ -414,6 +416,47 @@
                                     
                                     </ScrollContainer>
                                   
+                                       </IconTabFilter>
+                     
+                                       <IconTabFilter icon="sap-icon://begin"
+				iconColor="Positive"
+				
+				text="table"
+				key="table" >
+                                        <ScrollContainer
+					height="100%"
+					width="100%"
+					horizontal="false"
+					vertical="false">
+                   
+                   	<grid:Table
+				rows="{/Products}"
+				selectionMode="MultiToggle"
+				visibleRowCount="7"
+				paste="onPaste"
+				ariaLabelledBy="title">
+				<grid:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="title" text="Products"/>
+                        <Button text="Create"></Button>
+                         <Button text="Update"></Button>
+                          <Button text="Read"></Button>
+                           <Button text="Delete"></Button>
+					</OverflowToolbar>
+				</grid:extension>
+				<grid:columns>
+					<grid:Column width="11rem">
+						<Label text="Product Id" />
+						<grid:template>
+							<Text text="{Id}" wrapping="false" />
+						</grid:template>
+					</grid:Column>
+					
+				
+				</grid:columns>
+			</grid:Table>
+                   
+                    </ScrollContainer>
                                        </IconTabFilter>
                                    </items> 
                             </IconTabBar>
